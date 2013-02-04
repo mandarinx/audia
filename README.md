@@ -2,6 +2,12 @@
 
 Audia reimplements and extends the [HTML5 Audio][1] object using the [Web Audio API][2].
 
+## ImpactJS module
+
+This fork is Audia restructured to be an ImpactJS module. It works, but might contain bugs since it hasn't been properly tested. It's being used at [http://jippi.no](http://jippi.no), but since Jippi doesn't use all of the features, it wasn't necessary to test everything.
+
+It had to be made into an ImpactJS module because of the way we baked the source files in the Jippi project.
+
 ## Benefits
 
 * Future-proof
