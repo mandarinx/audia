@@ -8,6 +8,48 @@ This fork is Audia restructured to be an [ImpactJS](http://impactjs.com) module.
 
 It had to be made into an ImpactJS module because of the way we baked the source files in the Jippi project.
 
+### How to use
+
+The current implementation is messy, but I'll refine it for the next project.
+
+Initialize Audia like any other module: this.audia = new Audia();
+
+I used Impact's sound class for HTML Audio, since it was already there and I know it worked. Because of that, I made changes in impact/sound.js to make sure Impact would load and play sounds via Audia when possible.
+
+impact/sound.js, function load()
+
+After line "for( var i = this.clips[path].length; i < ig.Sound.channels; i++ ) {":
+
+```javascript
+var a;
+
+if (ig.audia.use) {
+    a = ig.audia.load(realPath);
+} else {
+    a = new Audio(realPath);
+    a.load();
+}
+
+this.clips[path].push( a );
+```
+
+Before line "if (loadCallback) {":
+
+```javascript
+var clip;
+if (ig.audia.use) {
+    clip = ig.audia.load(realPath);
+} else {
+    clip = new Audio(realPath);
+}
+```
+
+Now you can use ImpactJS's methods for playing sound, just like you used to.
+
+### Future implementation
+
+I'd like to make it so that you don't have to make changes in impact/sound.js, and rather simply decide which module to use by including the module you'd like (in the require() part of the module definitions).
+
 ## Benefits
 
 * Future-proof
